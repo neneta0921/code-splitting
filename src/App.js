@@ -1,5 +1,4 @@
-import { colors } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import './App.css';
 
@@ -13,7 +12,7 @@ function App() {
 
   const onRouteChange = (event) => {
     const page = event.currentTarget.getAttribute('page')
-    // setRoute(page);
+    setRoute(page);
     if (page === 'page1') {
       setComponent('')
     } else if (page === 'page2') {
@@ -35,10 +34,11 @@ function App() {
   // } else if (route === 'page3') {
   //   return <Page3 routeChange={() => onRouteChange} />
   // }
+  let Page = component
   if (route === 'page1') {
     return  <Page1 routeChange={() => onRouteChange} />
   } else {
-    return <component  routeChange={() => onRouteChange} />
+    return <Page  routeChange={() => onRouteChange} />
   }
 }
 
