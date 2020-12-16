@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import logo from '../logo.svg';
 import '../App.css';
 
-const Page3 = ({ routeChange }) => {
+const Page3 = ({ onRouteChange }) => {
   return (
     <div className='App'>
       <header className='App-header'>
@@ -14,8 +14,8 @@ const Page3 = ({ routeChange }) => {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <ButtonGroup size="large"  variant="contained" color="primary" aria-label="contained primary button group">
-          <Button onClick={routeChange()} page='page1'>Page1</Button>
-          <Button onClick={routeChange()} page='page2'>Page2</Button>
+          <Button onClick={() => onRouteChange('page1')} page='page1'>Page1</Button>
+          <Button onClick={() => onRouteChange('page2')} page='page2'>Page2</Button>
           <Button disabled>Page3</Button>
         </ButtonGroup>
       </header>

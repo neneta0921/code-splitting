@@ -1,5 +1,4 @@
-import { colors } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 
 import './App.css';
 
@@ -7,23 +6,29 @@ import Page1 from './components/Page1';
 // import Page2 from './components/Page2';
 // import Page3 from './components/Page3';
 
-function App() {
-  const [route, setRoute] = useState('page1');
-  const [component, setComponent] = useState('')
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      route: 'page1',
+      component: ''
+    }
+  }
 
-  const onRouteChange = (event) => {
-    const page = event.currentTarget.getAttribute('page')
-    // setRoute(page);
-    if (page === 'page1') {
-      setComponent('')
-    } else if (page === 'page2') {
+  onRouteChange = (route) => {
+    // No Code Splitting
+    // this.setState({ route: route });
+    // With Code Splitting
+    if (route === 'page1') {
+      this.setState({route: route})
+    } else if (route === 'page2') {
       import('./components/Page2').then((Page2) => {
         console.log(Page2.default);
-        setComponent(Page2.default)
+        this.setState({ route: route, component: Page2.default })
       })
-    } else if (page === 'page3') {
+    } else if (route === 'page3') {
       import('./components/Page3').then((Page3) => {
-        setComponent(Page3.default)
+        this.setState({ route: route, component: Page3.default })
       })
     }
   }
@@ -35,10 +40,14 @@ function App() {
   // } else if (route === 'page3') {
   //   return <Page3 routeChange={() => onRouteChange} />
   // }
-  if (route === 'page1') {
-    return  <Page1 routeChange={() => onRouteChange} />
-  } else {
-    return <component  routeChange={() => onRouteChange} />
+  render() {
+    const { route, component } = this.state;
+
+    if (route === 'page1') {
+      return  <Page1 onRouteChange={this.onRouteChange} />
+    } else {
+      return <this.state.component  onRouteChange={this.onRouteChange} />
+    }
   }
 }
 
